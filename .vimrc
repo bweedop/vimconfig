@@ -13,7 +13,6 @@ set nobackup
 set undodir=~/.vim/undodir
 set undofile
 set incsearch
-set hidden
 
 set colorcolumn=80
 highlight ColorColumn ctermbg=30 guibg=lightgrey
@@ -29,6 +28,8 @@ set nocompatible
 " inoremap {<CR> {<CR>}<ESC>O
 " inoremap {;<CR> {<CR>};<ESC>O
 
+
+
 " Cursor in terminal
 " https://vim.fandom.com/wiki/Configuring_the_cursor
 " 1 or 0 -> blinking block
@@ -38,6 +39,7 @@ set nocompatible
 " Recent versions of xterm (282 or above) also support
 " 5 -> blinking vertical bar
 " 6 -> solid vertical bar
+
 
 if &term =~ '^xterm'
     autocmd VimEnter * silent !echo -ne "\<Esc>[1 q"
@@ -84,8 +86,8 @@ Plug 'honza/vim-snippets'
 " Optional: better Rnoweb support (LaTeX completion)
 Plug 'lervag/vimtex'
 
-Plug 'wakatime/vim-wakatime'
-Plug 'dhruvasagar/vim-dotoo'
+" Plug 'wakatime/vim-wakatime'
+" Plug 'dhruvasagar/vim-dotoo'
 " Initialize plugin system
 call plug#end() 
 
@@ -130,3 +132,10 @@ nnoremap <silent> <Leader>gf :YcmCompleter FixIt<CR>
 
 " Dotoo configuration
 let g:dotoo#agenda#files=['~/dotoo/*.dotoo']
+
+nnoremap <leader>ev :vsplit $MYVIMRC<CR>
+nnoremap <leader>sv :source $MYVIMRC<CR>
+
+" Probably move to php.vim
+nnoremap <leader>a a->
+nnoremap <leader>kv a<space>=><space>
