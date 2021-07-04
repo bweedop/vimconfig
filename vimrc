@@ -1,8 +1,8 @@
 syntax on
 
 set noerrorbells
-set tabstop=4 softtabstop=4
-set shiftwidth=4
+set tabstop=2 softtabstop=2
+set shiftwidth=2
 set expandtab
 set smartindent
 set rnu
@@ -13,6 +13,8 @@ set nobackup
 set undodir=~/.vim/undodir
 set undofile
 set incsearch
+set exrc
+set secure
 
 set colorcolumn=80
 highlight ColorColumn ctermbg=30 guibg=lightgrey
@@ -41,13 +43,13 @@ set nocompatible
 " 6 -> solid vertical bar
 
 
-if &term =~ '^xterm'
-    autocmd VimEnter * silent !echo -ne "\<Esc>[1 q"
-    " normal mode
-    let &t_EI .= "\<Esc>[1 q"
-    " insert mode
-    let &t_SI .= "\<Esc>[1 q"
-endif
+"if &term =~ '^xterm'
+"    autocmd VimEnter * silent !echo -ne "\<Esc>[1 q"
+"    " normal mode
+"    let &t_EI .= "\<Esc>[1 q"
+"    " insert mode
+"    let &t_SI .= "\<Esc>[1 q"
+"endif
 
 call plug#begin('~/.vim/plugged')
 
@@ -85,10 +87,7 @@ Plug 'honza/vim-snippets'
 
 " Optional: better Rnoweb support (LaTeX completion)
 Plug 'lervag/vimtex'
-
-" Plug 'wakatime/vim-wakatime'
-" Plug 'dhruvasagar/vim-dotoo'
-" Initialize plugin system
+Plug 'prettier/vim-prettier', { 'do': 'npm install' }
 call plug#end() 
 
 colorscheme gruvbox
@@ -112,6 +111,23 @@ let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
+""" Vimwiki configuration
+" set path to vimwiki and make the syntax markdown
+let g:vimwiki_list = [{'path': '/mnt/c/Users/kweedop/OneDrive\ -\ Research\ Triangle\ Institute/workwiki/', 'syntax': 'markdown', 'ext': '.md'}]
+" Associate the various file extensions to markdow syntax
+let g:vimwiki_ext2syntax = {'.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown', '.wiki': 'markdown'}
+" Makes vimwiki markdown links as [text](text.md) rather than [text](text)
+let g:vimwiki_markdown_link_ext = 1
+" To use alternating colors for the heading levels
+let g:vimwiki_hl_headers = 1
+
+""" vim-markdown configuration
+let g:markdown_folding = 1
+let g:vim_markdown_auto_insert_bullets = 0
+let g:vim_markdown_new_list_item_indent = 0
+
+" External command for date
+nnoremap <leader>now i <C-r>=strftime('%Y%m%d')<CR>
 " Go to the left window
 nnoremap <leader>h :wincmd h<CR>
 " Go to the right window
@@ -123,19 +139,23 @@ nnoremap <leader>u :UndoTreeShow<CR>
 " Open directory and resize window to 30%
 nnoremap <leader>pv :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
 " Rip grep 
-nnoremap <leader>ps :Rg <SPACE>
+nnoremap <leader>ps :Rg<SPACE>
 nnoremap <silent> <Leader>+ :vertical resize +5<CR>
 nnoremap <silent> <Leader>- :vertical resize -5<CR>
+" Terminal shortcut
+nnoremap <leader>tt :term<CR>
+
+" vimwiki shortcuts
+nnoremap <leader>ws :VimwikiSearch<SPACE>
+nnoremap <leader>ln :lnext<CR>
+nnoremap <leader>lp :lprevious<CR>
 
 nnoremap <silent> <Leader>gd :YcmCompleter GoTo<CR>
 nnoremap <silent> <Leader>gf :YcmCompleter FixIt<CR>
 
-" Dotoo configuration
-let g:dotoo#agenda#files=['~/dotoo/*.dotoo']
-
 nnoremap <leader>ev :vsplit $MYVIMRC<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
-
+let g:ycm_filetype_blacklist = {}
 " Probably move to php.vim
 nnoremap <leader>a a->
 nnoremap <leader>kv a<space>=><space>
