@@ -1,0 +1,14 @@
+extends html
+
+snippet s "PHP shorthand"
+<?= $1 ?>
+endsnippet
+
+snippet func "PHP public or protected function"
+${1:public} function $2() {
+	$3
+}
+endsnippet
+
+	
+	
