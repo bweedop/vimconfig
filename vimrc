@@ -126,6 +126,9 @@ let g:markdown_folding = 1
 let g:vim_markdown_auto_insert_bullets = 0
 let g:vim_markdown_new_list_item_indent = 0
 
+""" YCM configuration
+let g:ycm_filetype_blacklist = {}
+
 " External command for date
 nnoremap <leader>now i <C-r>=strftime('%Y%m%d')<CR>
 " Go to the left window
@@ -155,7 +158,7 @@ nnoremap <silent> <Leader>gf :YcmCompleter FixIt<CR>
 
 nnoremap <leader>ev :vsplit $MYVIMRC<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
-let g:ycm_filetype_blacklist = {}
+
 " Probably move to php.vim
 nnoremap <leader>a a->
 nnoremap <leader>kv a<space>=><space>
