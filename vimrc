@@ -88,7 +88,14 @@ Plug 'honza/vim-snippets'
 " Optional: better Rnoweb support (LaTeX completion)
 Plug 'lervag/vimtex'
 Plug 'prettier/vim-prettier', { 'do': 'npm install' }
+Plug 'jupyter-vim/jupyter-vim'
 call plug#end() 
+
+if has('nvim')
+    let g:python3_host_prog = '/usr/bin/python3'
+else
+    set pyxversion=3
+endif
 
 colorscheme gruvbox
 set background=dark
@@ -160,5 +167,27 @@ nnoremap <leader>ev :vsplit $MYVIMRC<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
 
 " Probably move to php.vim
-nnoremap <leader>a a->
-nnoremap <leader>kv a<space>=><space>
+" nnoremap <leader>a a->
+" nnoremap <leader>kv a<space>=><space>
+
+" Jupyter-vim shortcuts because the default don't work
+" Run current file
+nnoremap <buffer> <silent> <leader>jr :JupyterRunFile<CR>
+nnoremap <buffer> <silent> <leader>ji :PythonImportThisFile<CR>
+
+" Change to directory of current file
+nnoremap <buffer> <silent> <leader>jd :JupyterCd %:p:h<CR>
+
+" Send a selection of lines
+nnoremap <buffer> <silent> <leader>jx :JupyterSendCell<CR>
+nnoremap <buffer> <silent> <leader>je :JupyterSendRange<CR>
+nmap     <buffer> <silent> <leader>jb <Plug>JupyterRunTextObj
+vmap     <buffer> <silent> <leader>jb <Plug>JupyterRunVisual
+
+nnoremap <buffer> <silent> <leader>ju :JupyterUpdateShell<CR>
+
+" Debugging maps
+nnoremap <buffer> <silent> <leader>jm :PythonSetBreak<CR>
+
+" WSL specific commands
+vmap <leader>cp :w !clip.exe<CR><CR>
